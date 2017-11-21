@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<style type="text/css">
+		body{
+			overflow: hidden;
+		}
+		.bullet{
+			background: red;
+			color: #fff;
+			position: absolute;
+			left:150%;
+		}
+	</style>
+	<iframe src="http://open.iqiyi.com/developer/player_js/coopPlayerIndex.html?vid=daa2434b7f7fb86d2858c47dd821e2de&tvId=737311600&accessToken=2.f22860a2479ad60d8da7697274de9346&appKey=3955c3425820435e86d0f4cdfe56f5e7&appId=1368&height=100%&width=100%" frameborder="0" allowfullscreen="true" width="100%" height="500px"></iframe>
+</head>
+<body>
+<input type="text" id="chat" onkeydown="sendInfo()">
+<script>
+	var socket = io.connect('http://10.2.151.244');
+	socket.on('welcome', function (data) {
+		console.log(data);
+	});
+
+	socket.on('toall', function (data) {
+		console.log(data);
+		var bullet = $('<div class="bullet"></div>').html(data);
+		$("body").append(bullet);
+		bullet.css({
+			top:500*Math.random() + "px",
+		})
+		bullet.animate({
+			left:'-400px'
+		},10000,function(){
+			bullet.remove();
+		})
+	});
+
+	function sendInfo(){
+		var chatCont = document.getElementById("chat");
+		var e = event || window.event;
+		if(e.keyCode == 13){
+			socket.emit("chat",chatCont.value);
+			chatCont.value = "";
+		}
+	}
+</script>
+</body>
+</html>

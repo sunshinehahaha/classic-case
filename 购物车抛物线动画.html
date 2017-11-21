@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#cui {
+			position: absolute;
+			height: 50px;
+			width: 50px;
+			background: red;
+			left:0;
+			top: 500px;
+			transition: left linear 2s, top cubic-bezier(.19,3.35,.35,1.51) 2s;
+		}
+		#cui.cart {
+			left: 400px;
+			top: 300px;
+		}
+	</style>
+</head>
+<body>
+<button onclick="addAnimi()">gogogo</button>
+<div id="cui"></div>
+</body>
+<script type="text/javascript">
+	function addAnimi() {
+		document.getElementById("cui").className = "cart";
+	}
+</script>
+</html>
